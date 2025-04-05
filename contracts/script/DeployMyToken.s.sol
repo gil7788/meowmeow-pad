@@ -7,7 +7,10 @@ import {MyToken} from "../src/MyToken.sol";
 
 contract DeployMyToken is Script {
     function run() external {
-        vm.startBroadcast(); // Start sending txs using private key (set via env var or CLI)
+        uint256 privateKey = vm.envUint("DEV_PRIVATE_KEY");
+        address account = vm.addr(privateKey);
+        console.log("Account", account);
+        vm.startBroadcast(privateKey); // Start sending txs using private key (set via env var or CLI)
         new MyToken();
         vm.stopBroadcast();
     }
